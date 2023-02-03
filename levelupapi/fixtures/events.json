@@ -1,0 +1,26 @@
+[
+    {
+        "model": "levelupapi.event",
+        "pk": 1,
+        "fields": {
+            "title": "Mandy's 8th Birthday Life Party",
+            "datetime": "2023-02-10T17:00:00-06:00",
+            "address": "888 Eighth Ave",
+            "game": 1,
+            "gamer": 1
+        }
+    },
+    {
+        "model": "levelupapi.event",
+        "pk": 2,
+        "fields": {
+            "title": "MineCraft Meetup",
+            "datetime": "2023-02-18T20:30:00-06:00",
+            "address": "Online",
+            "game": 2,
+            "gamer": 1
+        }
+    }
+]
+
+
