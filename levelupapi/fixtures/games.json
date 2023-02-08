@@ -4,7 +4,8 @@
         "pk": 1,
         "fields": {
             "title": "The Game of Life",
-            "num_players": 6,
+            "minimum_players": 2,
+            "maximum_players": 6,
             "maker": "Hasbro Gaming",
             "skill_level": 1,
             "gamer": 1,
@@ -16,7 +17,8 @@
         "pk": 2,
         "fields": {
             "title": "Minecraft",
-            "num_players": 4,
+            "minimum_players": 2,
+            "maximum_players": 4,
             "maker": "Mojang Studios",
             "skill_level": 2,
             "gamer": 1,
