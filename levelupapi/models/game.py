@@ -3,7 +3,8 @@ from django.db import models
 class Game(models.Model):
 
     title = models.CharField(max_length=50)
-    num_players = models.IntegerField()
+    minimum_players = models.IntegerField(default=2)
+    maximum_players = models.IntegerField()
     maker = models.CharField(max_length=50)
     skill_level = models.IntegerField()
     gamer = models.ForeignKey("Gamer", null=True, blank=True, on_delete=models.SET_NULL, related_name='games_created')
