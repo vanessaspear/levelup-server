@@ -46,7 +46,7 @@ class GameView(ViewSet):
             minimum_players=request.data["minimum_players"],
             skill_level=request.data["skill_level"],
             gamer=gamer,
-            type= type
+            type=type
         )
         serializer = GameSerializer(game)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
