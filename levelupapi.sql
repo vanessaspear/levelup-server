@@ -5,4 +5,4 @@ SELECT * FROM authtoken_token;
 SELECT * FROM levelupapi_gamer;
 
 DELETE FROM levelupapi_game
-WHERE id > 3;
+WHERE id = 7;
