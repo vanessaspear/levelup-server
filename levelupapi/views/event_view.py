@@ -4,6 +4,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
 from levelupapi.models import Event, Gamer, Game
+from rest_framework.decorators import action
 
 class EventView(ViewSet):
     """Level up event view"""
@@ -27,6 +28,7 @@ class EventView(ViewSet):
         """
 
         events = Event.objects.all()
+        gamer = Gamer.objects.get(user=request.auth.user)
 
         if "game" in request.query_params: 
             if request.query_params['game'] == '1':
@@ -34,6 +36,9 @@ class EventView(ViewSet):
             elif request.query_params['game'] == '2':
                 events = events.filter(game_id=2)
         
+        for event in events:
+            event.joined = gamer in event.attendees.all()
+
         serializer = EventSerializer(events, many=True)
         return Response(serializer.data)
 
@@ -81,6 +86,24 @@ class EventView(ViewSet):
         event = Event.objects.get(pk=pk)
         event.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
+    
+    @action(methods=['post'], detail=True)
+    def signup(self, request, pk):
+        """Post request for a user to sign up for an event"""
+    
+        gamer = Gamer.objects.get(user=request.auth.user)
+        event = Event.objects.get(pk=pk)
+        event.attendees.add(gamer)
+        return Response({'message': 'Gamer added'}, status=status.HTTP_201_CREATED)
+
+    @action(methods=['delete'], detail=True)
+    def leave(self, request, pk):
+        """Leave request for a user to leave an event"""
+    
+        gamer = Gamer.objects.get(user=request.auth.user)
+        event = Event.objects.get(pk=pk)
+        event.attendees.remove(gamer)
+        return Response({'message': 'Gamer removed'}, status=status.HTTP_204_NO_CONTENT)
 
 class GamerEventSerializer(serializers.ModelSerializer):
     class Meta: 
@@ -94,5 +117,5 @@ class EventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
-        fields = ('id', 'title', 'datetime', 'address', 'game', 'gamer')
+        fields = ('id', 'title', 'datetime', 'address', 'game', 'gamer', 'attendees', 'joined')
         depth = 1
