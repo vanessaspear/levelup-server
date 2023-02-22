@@ -81,6 +81,8 @@ class GameTests(APITestCase):
         self.assertEqual(json_response["skill_level"], 5)
         self.assertEqual(json_response["maximum_players"], 4)
         self.assertEqual(json_response["minimum_players"], 2)
+        self.assertEqual(json_response["gamer_id"], 1)
+        self.assertEqual(json_response["type"]["id"], 2)
 
     def test_change_game(self):
         """
